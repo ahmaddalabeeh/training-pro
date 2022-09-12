@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/FirstPage.dart';
-import 'package:flutter_application_1/Question1.dart';
-import 'package:flutter_application_1/accountcreate.dart';
+
 import 'package:flutter_application_1/sign_in.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -18,22 +16,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late AuthProvider authProvider;
-  late GlobalKey<FormState> formKey;
-
   @override
   void initState() {
     super.initState();
     authProvider = Provider.of<AuthProvider>(context, listen: false);
     authProvider.emailController = TextEditingController();
     authProvider.passwordController = TextEditingController();
-    formKey = GlobalKey<FormState>();
-  }
-
-  @override
-  void dispose() {
-    authProvider.emailController.dispose();
-    authProvider.passwordController.dispose();
-    super.dispose();
   }
 
   int _widgetId = 1;
@@ -41,198 +29,191 @@ class _MyHomePageState extends State<MyHomePage> {
     var size = MediaQuery.of(context).size;
     return Container(
       key: const Key("2"),
-      child: Form(
-        key: formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: size.height * (0.01),
-            ),
-            AnimatedContainer(
-              color: const Color.fromARGB(216, 82, 23, 193),
-              width: double.infinity,
-              height: size.height * (1),
-              duration: const Duration(milliseconds: 1500),
-              child: CustomPaint(
-                painter: CurvePainter(),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 40),
-                      child: Container(
-                        margin: EdgeInsets.only(top: size.height * 0.1),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Image.asset("assets/images-icons/icon2.PNG"),
-                            const Text(
-                              "CONNECT",
-                              style: TextStyle(
-                                  fontFamily: 'Cairo',
-                                  fontSize: 24,
-                                  color: Color.fromARGB(216, 82, 23, 193),
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: size.height * (0.01),
+          ),
+          AnimatedContainer(
+            color: const Color.fromARGB(216, 82, 23, 193),
+            width: double.infinity,
+            height: size.height * (1),
+            duration: const Duration(milliseconds: 1500),
+            child: CustomPaint(
+              painter: CurvePainter(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 40),
+                    child: Container(
                       margin: EdgeInsets.only(top: size.height * 0.1),
-                      padding: const EdgeInsets.fromLTRB(20, 8, 20, 40),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
+                          Image.asset("assets/images-icons/icon2.PNG"),
                           const Text(
-                            "Name",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Cairo',
-                                fontSize: 18),
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                                filled: true,
-                                fillColor:
-                                    const Color.fromARGB(255, 255, 255, 255)
-                                        .withOpacity(0.5),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                hintText: "Enter your Name",
-                                hintStyle: TextStyle(
-                                    color: Colors.white.withOpacity(0.8))),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "E-mail",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Cairo',
-                                fontSize: 18),
-                          ),
-                          TextFormField(
-                            controller: authProvider.emailController,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Please enter a valid email";
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                                filled: true,
-                                fillColor:
-                                    const Color.fromARGB(255, 255, 255, 255)
-                                        .withOpacity(0.5),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                hintText: "Enter your E-mail",
-                                hintStyle: TextStyle(
-                                    color: Colors.white.withOpacity(0.8))),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Password",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Cairo',
-                                fontSize: 18),
-                          ),
-                          Consumer<myProvider>(
-                            builder: ((context, value, child) {
-                              return TextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "Please enter a valid password";
-                                  }
-                                  return null;
-                                },
-                                controller: authProvider.passwordController,
-                                keyboardType: TextInputType.visiblePassword,
-                                obscureText: value.obstxt,
-                                decoration: InputDecoration(
-                                    suffixIcon: IconButton(
-                                        onPressed: () {
-                                          value.PassWord();
-                                        },
-                                        icon: Icon(value.obstxt
-                                            ? Icons.visibility
-                                            : Icons.visibility_off)),
-                                    filled: true,
-                                    fillColor:
-                                        const Color.fromARGB(255, 255, 255, 255)
-                                            .withOpacity(0.5),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    hintText: "Enter your Password",
-                                    hintStyle: TextStyle(
-                                        color: Colors.white.withOpacity(0.8))),
-                              );
-                            }),
-                          ),
-                          const Text(
-                            "Forgot Password?",
+                            "CONNECT",
                             style: TextStyle(
                                 fontFamily: 'Cairo',
-                                fontSize: 17,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500),
+                                fontSize: 24,
+                                color: Color.fromARGB(216, 82, 23, 193),
+                                fontWeight: FontWeight.bold),
                           )
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.white),
-                              fixedSize: MaterialStateProperty.all(
-                                  const Size.fromWidth(370)),
-                              elevation: MaterialStateProperty.all(5),
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(40)))),
-                          onPressed: () {
-                            if (formKey.currentState?.validate() ?? false) {
-                              authProvider.createWithEmailAndPassword(context);
-                            }
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              "Create Account",
-                              style: TextStyle(
-                                fontFamily: 'Cairo',
-                                fontSize: 20,
-                                color: Color.fromARGB(216, 82, 23, 193),
-                              ),
-                            ),
-                          )),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: size.height * 0.1),
+                    padding: const EdgeInsets.fromLTRB(20, 8, 20, 40),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Name",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Cairo',
+                              fontSize: 18),
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(
+                              filled: true,
+                              fillColor:
+                                  const Color.fromARGB(255, 255, 255, 255)
+                                      .withOpacity(0.5),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              hintText: "Enter your Name",
+                              hintStyle: TextStyle(
+                                  color: Colors.white.withOpacity(0.8))),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "E-mail",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Cairo',
+                              fontSize: 18),
+                        ),
+                        TextFormField(
+                          controller: authProvider.emailController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Please enter a valid email";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                              filled: true,
+                              fillColor:
+                                  const Color.fromARGB(255, 255, 255, 255)
+                                      .withOpacity(0.5),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              hintText: "Enter your E-mail",
+                              hintStyle: TextStyle(
+                                  color: Colors.white.withOpacity(0.8))),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Password",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Cairo',
+                              fontSize: 18),
+                        ),
+                        Consumer<myProvider>(
+                          builder: ((context, value, child) {
+                            return TextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter a valid password";
+                                }
+                                return null;
+                              },
+                              controller: authProvider.passwordController,
+                              keyboardType: TextInputType.visiblePassword,
+                              obscureText: value.obstxt,
+                              decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                      onPressed: () {
+                                        value.PassWord();
+                                      },
+                                      icon: Icon(value.obstxt
+                                          ? Icons.visibility
+                                          : Icons.visibility_off)),
+                                  filled: true,
+                                  fillColor:
+                                      const Color.fromARGB(255, 255, 255, 255)
+                                          .withOpacity(0.5),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15)),
+                                  hintText: "Enter your Password",
+                                  hintStyle: TextStyle(
+                                      color: Colors.white.withOpacity(0.8))),
+                            );
+                          }),
+                        ),
+                        const Text(
+                          "Forgot Password?",
+                          style: TextStyle(
+                              fontFamily: 'Cairo',
+                              fontSize: 17,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500),
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                            fixedSize: MaterialStateProperty.all(
+                                const Size.fromWidth(370)),
+                            elevation: MaterialStateProperty.all(5),
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(40)))),
+                        onPressed: () {
+                          authProvider.createWithEmailAndPassword(context);
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            "Create Account",
+                            style: TextStyle(
+                              fontFamily: 'Cairo',
+                              fontSize: 20,
+                              color: Color.fromARGB(216, 82, 23, 193),
+                            ),
+                          ),
+                        )),
+                  ),
+                ],
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -404,7 +385,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SignIn(),
+                              builder: (context) => LoginScreen(),
                             ));
                       },
                       child: RichText(

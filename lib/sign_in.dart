@@ -1,39 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/text_form_widget.dart';
+import 'package:provider/provider.dart';
+import 'auth_proivder.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+class LoginScreen extends StatefulWidget {
+  static const String routeName = "/loginScreen";
 
-class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _SignInState extends State<SignIn> {
+class _LoginScreenState extends State<LoginScreen> {
+  late AuthProvider authProvider;
+  late GlobalKey<FormState> formKey;
+
+  @override
+  void initState() {
+    super.initState();
+    authProvider = Provider.of<AuthProvider>(context, listen: false);
+    authProvider.emailController = TextEditingController();
+    authProvider.passwordController = TextEditingController();
+    formKey = GlobalKey<FormState>();
+  }
+
+  @override
+  void dispose() {
+    authProvider.emailController.dispose();
+    authProvider.passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown[100],
-      appBar: AppBar(
-        backgroundColor: Colors.brown[400],
-        elevation: 0,
-        title: Text("Sign In to the application"),
-      ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-        child: ElevatedButton(
-            onPressed: () async {
-              // dynamic result = await _auth.signInAnon();
-              // if (result == null) {
-              //   print("Error signing in");
-              // } else {
-              //   print("Signed in");
-              //   print(result);
-              // }
-            },
-            child: Text("Sign in ANON")),
-      ),
+      body: Center(
+          child: Form(
+        key: formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomTextFormField(
+              controller: authProvider.emailController,
+              type: TextInputType.emailAddress,
+              hint: "Please enter your email address",
+              empty: "Your E-mail address",
+              icon: const Icon(Icons.email),
+              txt: false,
+            ),
+            CustomTextFormField(
+              controller: authProvider.passwordController,
+              type: TextInputType.visiblePassword,
+              hint: "Please enter your password",
+              empty: "Password",
+              icon: const Icon(Icons.password),
+              txt: true,
+            ),
+            StyledButton(
+              onPressed: () {
+                if (formKey.currentState?.validate() ?? false) {
+                  authProvider.loginInWithEmailAndPassword(context);
+                }
+              },
+              child: const Icon(Icons.login),
+            )
+          ],
+        ),
+      )),
     );
   }
 }

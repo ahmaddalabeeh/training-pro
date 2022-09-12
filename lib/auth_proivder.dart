@@ -48,7 +48,7 @@ class AuthProvider with ChangeNotifier {
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignIn()));
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
       }
     } catch (e) {
       print(e);
