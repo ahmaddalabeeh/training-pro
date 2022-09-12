@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Question2.dart';
+import 'package:flutter_application_1/auth_proivder.dart';
 import 'package:flutter_application_1/calendar.dart';
 import 'package:flutter_application_1/myproviders.dart';
 import 'package:flutter_application_1/pageThree.dart';
@@ -69,7 +70,7 @@ class PageTwo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               RichText(
-                  text: const TextSpan(
+                  text: TextSpan(
                       text: "Hello, ",
                       style: TextStyle(
                         fontFamily: 'Cairo',
@@ -78,7 +79,9 @@ class PageTwo extends StatelessWidget {
                       ),
                       children: [
                     TextSpan(
-                        text: "Riya",
+                        text: Provider.of<AuthProvider>(context, listen: false)
+                            .currentUser
+                            ?.email,
                         style: TextStyle(fontWeight: FontWeight.bold))
                   ])),
               ElevatedButton(

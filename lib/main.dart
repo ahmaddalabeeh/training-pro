@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pageThree.dart';
+import 'package:flutter_application_1/auth_proivder.dart';
 import 'package:flutter_application_1/splashscreen.dart';
-import 'package:provider/provider.dart';
-import 'myHomePage.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const HomePage());
 }
 
@@ -13,9 +16,12 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+    return ChangeNotifierProvider(
+      create: (context) => AuthProvider(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen(),
+      ),
     );
   }
 }

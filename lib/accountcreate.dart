@@ -63,7 +63,7 @@ class _CreateAccountState extends State<CreateAccount> {
                               fontFamily: 'Cairo',
                               fontSize: 18),
                         ),
-                        TextField(
+                        TextFormField(
                           decoration: InputDecoration(
                               filled: true,
                               fillColor:
@@ -90,7 +90,7 @@ class _CreateAccountState extends State<CreateAccount> {
                               fontFamily: 'Cairo',
                               fontSize: 18),
                         ),
-                        TextField(
+                        TextFormField(
                           decoration: InputDecoration(
                               filled: true,
                               fillColor:
@@ -119,7 +119,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         ),
                         Consumer<myProvider>(
                           builder: ((context, value, child) {
-                            return TextField(
+                            return TextFormField(
                               keyboardType: TextInputType.visiblePassword,
                               obscureText: value.obstxt,
                               decoration: InputDecoration(
@@ -169,7 +169,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         child: const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Text(
-                            "Create Account",
+                            "Create AccASSountnt",
                             style: TextStyle(
                               fontFamily: 'Cairo',
                               fontSize: 20,

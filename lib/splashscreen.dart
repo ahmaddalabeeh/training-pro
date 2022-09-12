@@ -12,13 +12,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigatetohome();
-  }
 
-  _navigatetohome() async {
-    await Future.delayed(const Duration(milliseconds: 1500), (() {}));
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: ((context) => const MyHomePage())));
+    Future.delayed(const Duration(milliseconds: 1500), (() {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: ((context) => const MyHomePage())));
+    }));
   }
 
   @override
